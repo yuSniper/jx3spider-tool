@@ -77,6 +77,7 @@ const spider = async () =>{
   let fileCount = 1;
   let url = 'https://tieba.baidu.com/f?kw=%E5%89%91%E7%BD%913&ie=utf-8&pn='; // 翻页地址
   for (let i = 0; i < pageSum; i++) {
+    console.log(`目前是第${i}页，总计${pageSum}页！`);
     const html = await getHtml(url + i * pageSize);
     const post = await compile(html);
     temp.push(...post);
