@@ -1,0 +1,23 @@
+{
+  "name": "jx3spider-tool",
+  "version": "1.0.0",
+  "description": "贴吧地址\r ```\r https://tieba.baidu.com/f?kw=%E5%89%91%E7%BD%913&ie=utf-8\r ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JX3Hub/jx3spider-tool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JX3Hub/jx3spider-tool/issues"
+  },
+  "homepage": "https://github.com/JX3Hub/jx3spider-tool#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "superagent": "^3.8.2"
+  }
+}
