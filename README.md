@@ -31,3 +31,8 @@ https://tieba.baidu.com/p/5647381685
 ```
 .th_footer_l span
 ```
+
+帖子回复时间 - 第五个
+```
+.d_post_content_firstfloor .core_reply .post-tail-wrap span
+```

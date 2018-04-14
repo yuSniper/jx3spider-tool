@@ -34,12 +34,13 @@ const compile = async (html) => {
   });
 
   return new Promise(async (resolve) => {
-    const result = []; // 帖子对象数组 {name: '', url: '', reply: 1};
+    const result = []; // 帖子对象数组 {name: '', url: '', reply: 1， time: ''};
     const promiseArr = post.map((item) => {
       return new Promise(async (resolve) => {
         const postHtml = await getHtml(item.url);
         const reply = getRelyNumber(postHtml);
-        result.push({...item, reply});
+        const time = getPostTime(postHtml);
+        result.push({...item, reply, time});
         resolve();
       })
     });
@@ -55,6 +56,13 @@ const getRelyNumber = (html) => {
   const $ = cheerio.load(html);
   const doms = $('.l_reply_num span');
   return doms.eq(0).text();
+}
+
+// 获取帖子发帖时间
+const getPostTime = (html) => {
+  const $ = cheerio.load(html);
+  const doms = $('.d_post_content_firstfloor .core_reply .post-tail-wrap span');
+  return doms.eq(5).text();
 }
 
 
