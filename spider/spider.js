@@ -3,6 +3,7 @@ const fs = require('fs');
 const http = require('http');
 const superagent = require('superagent');
 const path = require('path');
+const process = require('process');
 
 const KEY_WORD = ['818', '树洞'];
 
@@ -74,17 +75,18 @@ const getPostNumber = (html) => {
 }
 
 
-const spider = async () =>{
+const spider = async (start, end) =>{
   const index = 'https://tieba.baidu.com/f?kw=%E5%89%91%E7%BD%913&ie=utf-8';
   const indexHtml =  await getHtml(index);
   const postNum = await getPostNumber(indexHtml);
   const pageSize = 50;
-  const pageSum = Math.ceil(postNum / pageSize);  // 总页数
+  // const pageSum = Math.ceil(postNum / pageSize);  // 总页数
+  const pageSum = end;
   let temp = []; // 数据缓存数组
   const max = 1000; // 最多缓存帖子数，达到输出
   let fileCount = 1;
   let url = 'https://tieba.baidu.com/f?kw=%E5%89%91%E7%BD%913&ie=utf-8&pn='; // 翻页地址
-  for (let i = 0; i < pageSum; i++) {
+  for (let i = start; i < pageSum; i++) {
     console.log(`目前是第${i}页，总计${pageSum}页！`);
     const html = await getHtml(url + i * pageSize);
     const post = await compile(html);
@@ -99,13 +101,15 @@ const spider = async () =>{
     }
   }
 
-
+  
+  if (temp.length > 0) {
+    const filename = (path.resolve(__dirname, `../post/${new Date().getTime()}.json`));
+    fs.writeFileSync(filename, JSON.stringify(temp, null, 2), {encoding: 'utf-8'});
+    console.log(`输出文件${filename}, 这是本次程序输出的第${fileCount++}个`);
+  }
   // 输出剩下的帖子
-  const filename = (path.resolve(__dirname, `../post/${new Date().getTime()}.json`));
-  fs.writeFileSync(filename, JSON.stringify(temp, null, 2), {encoding: 'utf-8'});
-  console.log(`输出文件${filename}, 这是本次程序输出的第${fileCount++}个`);
-  console.log('爬虫结束！');  
+  console.log('爬虫结束！',  start, end);  
 }
 
 
-spider();
+spider(process.argv[2], process.argv[3]);
