@@ -21,8 +21,16 @@ datas.sort((a, b) => {
   return b.reply - a.reply;
 });
 
+// 去重
+const result = {};
+datas.forEach((item) => {
+  if (!result[item.name]) {
+    result[item.name] = {...item};
+  }
+});
+
 // 输出
 const output = path.resolve(__dirname, `../summary/${new Date().getTime()}.json`);
-fs.writeFileSync(output, JSON.stringify(datas, null, 2));
+fs.writeFileSync(output, JSON.stringify(result, null, 2));
 
 console.log('排序完成!');

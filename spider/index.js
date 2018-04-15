@@ -62,7 +62,7 @@ const getRelyNumber = (html) => {
 const getPostTime = (html) => {
   const $ = cheerio.load(html);
   const doms = $('.d_post_content_firstfloor .core_reply .post-tail-wrap span');
-  return doms.eq(5).text();
+  return doms.eq(4).text();
 }
 
 
