@@ -41,7 +41,8 @@ const compile = async (html) => {
         const postHtml = await getHtml(item.url);
         const reply = getRelyNumber(postHtml);
         const time = getPostTime(postHtml);
-        result.push({...item, reply, time});
+        const author = getPostAuthor(postHtml);
+        result.push({...item, reply, time, author});
         resolve();
       })
     });
@@ -64,6 +65,13 @@ const getPostTime = (html) => {
   const $ = cheerio.load(html);
   const doms = $('.d_post_content_firstfloor .core_reply .post-tail-wrap span');
   return doms.eq(4).text();
+}
+
+// 获取帖子作者
+const getPostAuthor = (html) => {
+  const $ = cheerio.load(html);
+  const doms = $('.l_post .p_author .p_author_name');
+  return doms.eq(0).text();
 }
 
 

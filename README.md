@@ -36,3 +36,8 @@ https://tieba.baidu.com/p/5647381685
 ```
 .d_post_content_firstfloor .core_reply .post-tail-wrap span
 ```
+
+帖子作者 - 第一个
+```
+.l_post .p_author .p_author_name
+```
