@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 
-const files = fs.readdirSync(path.resolve(__dirname, '../post/'), {encoding: 'utf-8'});
+const files = fs.readdirSync(path.resolve(__filename, '../post/'), {encoding: 'utf-8'});
 
 const datas = [];
 
@@ -11,7 +11,7 @@ files.forEach((item) => {
   if (item === 'README.md') {
     return;
   }
-  const file = fs.readFileSync(path.resolve(__dirname, `../post/${item}`));
+  const file = fs.readFileSync(path.resolve(__filename, `../post/${item}`));
   datas.push(...JSON.parse(file));
 });
 
@@ -30,7 +30,7 @@ datas.forEach((item) => {
 });
 
 // 输出
-const output = path.resolve(__dirname, `../summary/${new Date().getTime()}.json`);
+const output = path.resolve(__filename, `../summary/${new Date().getTime()}.json`);
 fs.writeFileSync(output, JSON.stringify(result, null, 2));
 
 console.log('排序完成!');

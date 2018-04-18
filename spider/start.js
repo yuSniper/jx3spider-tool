@@ -2,6 +2,7 @@ const process = require('process');
 const cheerio = require('cheerio');
 const superagent = require('superagent');
 const child_process = require('child_process');
+const path = require('path');
 
 const getPostNumber = (html) => {
   const $ = cheerio.load(html);
@@ -34,7 +35,7 @@ const start = async () => {
 
   for(let i = 0; i < child_process_num; i++) {
     const id = new Date().getTime();
-    child_process.exec(`pm2 start spider.js --name jx3spider-${id} -- ${i * offset} ${(i+1) * offset}`);
+    child_process.exec(`pm2 start ${path.resolve(__dirname, './spider.js')} --name jx3spider-${id} -- ${i * offset} ${(i+1) * offset}`);
   }
   console.log(`${child_process_num}个并发脚本启动!`);
 }
